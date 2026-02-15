@@ -12,10 +12,38 @@ body
     height: 100vh;
 
 }
+.style
+{
+    width: 90%;  
+}
 #calculator
 {
     background-color: rgb(56, 51, 51);
     width: 300px;
     height: 500px;
     border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    padding-top: 30px;
+}
+#display
+{
+    height: 20%;
+    border-radius: 10px;
+    background-color: aqua;
+}
+.lineSpace
+{
+    height: 5px;
+    background-color: white;
+}
+#keyPad
+{
+    height: 67%;
+    background-color: red;
+    margin-bottom: 20px;
+    box-sizing: border-box;
 }
