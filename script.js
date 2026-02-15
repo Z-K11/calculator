@@ -32,3 +32,13 @@ function operate(a,b,operator)
             break;
     }
 }
+const keyPadNumbers = document.querySelector("#numbers");
+numArray=[];
+for (let i =12;i>0;i--)
+{
+    numArray[12-i]=document.createElement("div");
+    if(i>2)
+        numArray[12-i].setAttribute("id",`number_${i-3}`);
+    if(i<=2)
+    numArray[12-i].setAttribute("id",`specialKey_${i}`);
+}
