@@ -18,7 +18,7 @@ body
 }
 #calculator
 {
-    background-color: rgb(56, 51, 51);
+    background-color: rgb(99, 90, 90);
     width: 300px;
     height: 500px;
     border-radius: 20px;
@@ -46,10 +46,12 @@ body
     /* background-color: red; */
     margin-bottom: 20px;
     box-sizing: border-box;
+    display: flex;
+    gap: 5px;
 }
 .numbers
 {
-    width: 75%;
+    width: 73%;
     /* 200px */
     height: 100%;
     display: flex;
@@ -57,6 +59,11 @@ body
     justify-content: space-between;
     align-items: center;
     /* background-color: red; */
+}
+.operators
+{
+    width: 23%;
+    height: 100%;
 }
 .padButtons
 {
@@ -66,4 +73,6 @@ body
     border-radius: 10px;
     box-sizing: border-box;
     font-size: 20px;
+    font-weight: bolder;
+    background-color: white;
 }

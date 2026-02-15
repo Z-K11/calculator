@@ -32,7 +32,7 @@ function operate(a,b,operator)
             break;
     }
 }
-const Buttons =
+const keyPadButtons =
 [
     {id:'number_9',text:"9",},
     {id:'number_8',text:"8",},
@@ -49,7 +49,7 @@ const Buttons =
 
 ]
 const keyPadNumbers = document.querySelector(".numbers");
-const numArray = Buttons.map(button=>
+const numArray = keyPadButtons.map(button=>
 {
     const element=document.createElement('button');
     element.id=button.id;
