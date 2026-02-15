@@ -60,3 +60,22 @@ const numArray = keyPadButtons.map(button=>
 }
 );
 console.table(numArray);
+const operators =
+[
+    {id:'divide',text:"÷"},
+    {id:'multiply',text:"×"},
+    {id:'add',text:"+"},
+    {id:'subtract',text:"-"},
+]
+const operatorContainer = document.querySelector(".operators");
+const operatorArray = operators.map(currentOperator=>
+{
+    const element=document.createElement("button");
+    element.id=currentOperator.id;
+    element.textContent=currentOperator.text;
+    element.classList.add('operatorButtons');
+    operatorContainer.appendChild(element);
+    return element;
+}
+);
+console.table(operatorArray);
