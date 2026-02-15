@@ -32,13 +32,31 @@ function operate(a,b,operator)
             break;
     }
 }
-const keyPadNumbers = document.querySelector("#numbers");
-numArray=[];
-for (let i =12;i>0;i--)
+const Buttons =
+[
+    {id:'number_9',text:"9",},
+    {id:'number_8',text:"8",},
+    {id:'number_7',text:"7",},
+    {id:'number_6',text:"6",},
+    {id:'number_5',text:"5",},
+    {id:'number_4',text:"4",},
+    {id:'number_3',text:"3",},
+    {id:'number_2',text:"2",},
+    {id:'number_1',text:"1",},
+    {id:'number_0',text:"0",},
+    {id:'clearKey',text:"CE",},
+    {id:'equateKey',text:"=",}
+
+]
+const keyPadNumbers = document.querySelector(".numbers");
+const numArray = Buttons.map(button=>
 {
-    numArray[12-i]=document.createElement("div");
-    if(i>2)
-        numArray[12-i].setAttribute("id",`number_${i-3}`);
-    if(i<=2)
-    numArray[12-i].setAttribute("id",`specialKey_${i}`);
+    const element=document.createElement('button');
+    element.id=button.id;
+    element.textContent=button.text;
+    element.classList.add('padButtons');
+    keyPadNumbers.appendChild(element);
+    return element;
 }
+);
+console.table(numArray);
