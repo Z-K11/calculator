@@ -159,6 +159,7 @@ number.addEventListener('click',e =>
         case "equate_key":
             carryOutOperation();
             global.checkIfOperatorAlreadyPressed=false;
+            global.inputForNum2=false;
             return;
         default:
             return;
