@@ -48,7 +48,7 @@ const keyPadButtons =
     {id:'number_2',text:"2",},
     {id:'number_3',text:"3",},
     {id:'number_0',text:"0",},
-    {id:'clear_key',text:"CE",},
+    {id:'clear_key',text:"⌫",},
     {id:'equate_key',text:"=",}
 
 ]
@@ -76,9 +76,10 @@ const buttonsArray = array.map(button=>
     return buttonsArray
 }
 const numArray=createButtons(keyPadButtons,keyPadNumbers,'padButtons');
-console.table(numArray);
 const operatorArray=createButtons(operators,operatorContainer,'operatorButtons');
-console.table(operatorArray);
+const backSpace = document.querySelector("#clear_key");
+backSpace.style.fontSize='35px';
+backSpace.style.fontWeight="100";
 const number = document.querySelector('#numberPad');
 number.addEventListener('click',e =>
 {
@@ -115,8 +116,11 @@ number.addEventListener('click',e =>
             num=0;
             break;
         case "clear_key":
-            alert('Clear');
-            break;
+            {
+            stack.pop();
+            display(stack);
+            }
+            return;
         case "equate_key":
             alert('Equate!');
             break;
