@@ -14,13 +14,17 @@ function subtract(a,b)
 {
     return a-b;
 }
-function operate(a,b,operator)
+function operate(stack)
 {
+    let b=stack.pop();
+    const operator=stack.pop();
+    let a=stack.pop();
+    let ans
     switch (operator) {
-        case "/":
+        case "÷":
             ans = divide(a,b);
             break;
-        case "*":
+        case "×":
             ans=multiply(a,b);
             break;
         case "+":
@@ -30,7 +34,7 @@ function operate(a,b,operator)
             ans=subtract(a,b);
             break;
         default:
-            alert('ERROR IN OPERATE FUNCTION');
+            console.log(operator);
             break;
     }
     return ans;
@@ -122,8 +126,12 @@ number.addEventListener('click',e =>
             }
             return;
         case "equate_key":
-            alert('Equate!');
-            break;
+            answer=operate(stack);
+            console.log(answer);
+            stack.push(answer);
+            display(stack);
+            checkIfOperatorAlreadyPressed=false;
+            return;
         default:
             return;
     }
@@ -132,26 +140,63 @@ number.addEventListener('click',e =>
 }
 );
 const operator= document.querySelector("#operatorPad");
+checkIfOperatorAlreadyPressed = false;
 operator.addEventListener('click',e=>
 {
     target=e.target;
     switch (target.id) {
         case 'divide':
-            operatorValue='÷'
+            if(checkIfOperatorAlreadyPressed)
+            {
+                answer=operate(stack);
+                stack.push(answer);
+                display(stack);
+                console.table(stack);
+                checkIfOperatorAlreadyPressed=false;   
+            }
+            operatorValue='÷';
+            checkIfOperatorAlreadyPressed = true;
+            console.log(checkIfOperatorAlreadyPressed);
             break;
         case 'multiply':
-            operatorValue='×'
+            if(checkIfOperatorAlreadyPressed)
+            {
+                answer=operate(stack);
+                stack.push(answer);
+                display(stack);
+                console.table(stack);
+                checkIfOperatorAlreadyPressed=false;   
+            }
+            operatorValue='×';
+            checkIfOperatorAlreadyPressed = true;
             break;
         case 'add':
-            operatorValue='+'
+            if(checkIfOperatorAlreadyPressed)
+            {
+                answer=operate(stack);
+                stack.push(answer);
+                display(stack);
+                console.table(stack);
+                checkIfOperatorAlreadyPressed=false;   
+            }
+            operatorValue='+';
+            checkIfOperatorAlreadyPressed = true;
             break;
         case 'subtract':
-            operatorValue='-'
+            if(checkIfOperatorAlreadyPressed)
+            {
+                answer=operate(stack);
+                stack.push(answer);
+                display(stack);
+                console.table(stack);
+                checkIfOperatorAlreadyPressed=false;   
+            }
+            operatorValue='-';
+            checkIfOperatorAlreadyPressed = true;
             break;
         default:
             return;
     }
-    console.log(operatorValue);
     stack.push(operatorValue);
     display(stack);
 }
