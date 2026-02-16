@@ -4,6 +4,7 @@ const global=
     num : "",
     checkIfOperatorAlreadyPressed : false,
     inputForNum2 :false,
+    equate : false,
 
 }
 function divide(a,b)
@@ -110,6 +111,11 @@ function decideInputField()
 function carryOutOperation()
 {
             answer=operate(global.stack);
+            if(isNaN(answer))
+            {
+                displayId.textContent="Syntax Error"
+                global.stack.length=0;
+            }
             console.log(answer);
             global.stack.push(answer);
             console.table(global.stack);
@@ -117,7 +123,13 @@ function carryOutOperation()
 }
 number.addEventListener('click',e =>
 {
-   
+   if(global.equate)
+   {
+    global.stack.length=0;
+    display(global.stack);
+    global.num="";
+    global.equate=false;
+   }
     let target = e.target;
     switch (target.id) {
         case "number_9":
@@ -160,6 +172,7 @@ number.addEventListener('click',e =>
             carryOutOperation();
             global.checkIfOperatorAlreadyPressed=false;
             global.inputForNum2=false;
+            global.equate=true;
             return;
         default:
             return;
