@@ -32,20 +32,21 @@ function operate(a,b,operator)
             break;
     }
 }
+const stack = [];
 const keyPadButtons =
 [
-    {id:'number_9',text:"9",},
-    {id:'number_8',text:"8",},
     {id:'number_7',text:"7",},
-    {id:'number_6',text:"6",},
-    {id:'number_5',text:"5",},
+    {id:'number_8',text:"8",},
+    {id:'number_9',text:"9",},
     {id:'number_4',text:"4",},
-    {id:'number_3',text:"3",},
-    {id:'number_2',text:"2",},
+    {id:'number_5',text:"5",},
+    {id:'number_6',text:"6",},
     {id:'number_1',text:"1",},
+    {id:'number_2',text:"2",},
+    {id:'number_3',text:"3",},
     {id:'number_0',text:"0",},
-    {id:'clearKey',text:"CE",},
-    {id:'equateKey',text:"=",}
+    {id:'clear_key',text:"CE",},
+    {id:'equate_key',text:"=",}
 
 ]
 const operators =
@@ -75,3 +76,47 @@ const numArray=createButtons(keyPadButtons,keyPadNumbers,'padButtons');
 console.table(numArray);
 const operatorArray=createButtons(operators,operatorContainer,'operatorButtons');
 console.table(operatorArray);
+const number = document.querySelector('#numberPad');
+number.addEventListener('click',e =>
+{
+    target = e.target;
+    switch (target.id) {
+        case "number_9":
+            num=9;
+            break;
+        case "number_8":
+            num=8;
+            break;
+        case "number_7":
+            num=7;
+            break;
+        case "number_6":
+            num=6;
+            break;
+        case "number_5":
+            num=5;
+            break;
+        case "number_4":
+            num=4;
+            break;
+        case "number_3":
+            num=3;
+            break;
+        case "number_2":
+            num=2;
+            break;
+        case "number_1":
+            num=1;
+            break;
+        case "clear_key":
+            alert('Clear');
+            break;
+        case "equate_key":
+            alert('Equate!');
+            break;
+        default:
+            alert("error");
+            break;
+    }
+}
+);
