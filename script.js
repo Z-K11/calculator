@@ -140,10 +140,10 @@ operator.addEventListener('click',e=>
             operatorValue='÷'
             break;
         case 'multiply':
-            operatorValue='*'
+            operatorValue='×'
             break;
         case 'add':
-            operatorValue='*'
+            operatorValue='+'
             break;
         case 'subtract':
             operatorValue='-'
