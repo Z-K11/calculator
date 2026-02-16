@@ -123,8 +123,32 @@ number.addEventListener('click',e =>
         default:
             return;
     }
-    console.log(num);
     stack.push(num);
+    display(stack);
+}
+);
+const operator= document.querySelector("#operatorPad");
+operator.addEventListener('click',e=>
+{
+    target=e.target;
+    switch (target.id) {
+        case 'divide':
+            operatorValue='÷'
+            break;
+        case 'multiply':
+            operatorValue='*'
+            break;
+        case 'add':
+            operatorValue='*'
+            break;
+        case 'subtract':
+            operatorValue='-'
+            break;
+        default:
+            return;
+    }
+    console.log(operatorValue);
+    stack.push(operatorValue);
     display(stack);
 }
 );
