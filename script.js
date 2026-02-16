@@ -48,18 +48,6 @@ const keyPadButtons =
     {id:'equateKey',text:"=",}
 
 ]
-const keyPadNumbers = document.querySelector(".numbers");
-const numArray = keyPadButtons.map(button=>
-{
-    const element=document.createElement('button');
-    element.id=button.id;
-    element.textContent=button.text;
-    element.classList.add('padButtons');
-    keyPadNumbers.appendChild(element);
-    return element;
-}
-);
-console.table(numArray);
 const operators =
 [
     {id:'divide',text:"÷"},
@@ -67,15 +55,23 @@ const operators =
     {id:'add',text:"+"},
     {id:'subtract',text:"-"},
 ]
+const keyPadNumbers = document.querySelector(".numbers");
 const operatorContainer = document.querySelector(".operators");
-const operatorArray = operators.map(currentOperator=>
+function createButtons(array,parent,styleClass)
 {
-    const element=document.createElement("button");
-    element.id=currentOperator.id;
-    element.textContent=currentOperator.text;
-    element.classList.add('operatorButtons');
-    operatorContainer.appendChild(element);
+const buttonsArray = array.map(button=>
+{
+    const element=document.createElement('button');
+    element.id=button.id;
+    element.textContent=button.text;
+    element.classList.add(styleClass);
+    parent.appendChild(element);
     return element;
 }
 );
+    return buttonsArray
+}
+const numArray=createButtons(keyPadButtons,keyPadNumbers,'padButtons');
+console.table(numArray);
+const operatorArray=createButtons(operators,operatorContainer,'operatorButtons');
 console.table(operatorArray);
