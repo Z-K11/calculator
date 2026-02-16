@@ -33,6 +33,7 @@ function operate(a,b,operator)
             alert('ERROR IN OPERATE FUNCTION');
             break;
     }
+    return ans;
 }
 const stack = [];
 const keyPadButtons =
