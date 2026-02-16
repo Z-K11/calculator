@@ -111,6 +111,9 @@ number.addEventListener('click',e =>
         case "number_1":
             num=1;
             break;
+        case "number_0":
+            num=0;
+            break;
         case "clear_key":
             alert('Clear');
             break;
@@ -118,8 +121,16 @@ number.addEventListener('click',e =>
             alert('Equate!');
             break;
         default:
-            alert("error");
-            break;
+            return;
     }
+    console.log(num);
+    stack.push(num);
+    display(stack);
 }
 );
+const displayId = document.querySelector('#display');
+function display(displayStack)
+{
+    displayId.textContent = displayStack.join("");
+    displayId.scrollLeft = displayId.scrollWidth;
+}

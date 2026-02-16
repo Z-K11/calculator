@@ -34,6 +34,16 @@ body
     height: 20%;
     border-radius: 10px;
     background-color: aqua;
+    box-sizing: border-box;
+    padding: 0 2.5px;
+    font-size: 40px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+#display::-webkit-scrollbar
+{
+    display: none;
 }
 .lineSpace
 {
