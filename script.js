@@ -1,3 +1,11 @@
+const global=
+{
+    stack : [],
+    num : "",
+    checkIfOperatorAlreadyPressed : false,
+    inputForNum2 :false,
+
+}
 function divide(a,b)
 {
     return a/b;
@@ -16,9 +24,9 @@ function subtract(a,b)
 }
 function operate(stack)
 {
-    let b=stack.pop();
+    let b=parseInt(stack.pop());
     const operator=stack.pop();
-    let a=stack.pop();
+    let a=parseInt(stack.pop());
     let ans
     switch (operator) {
         case "÷":
@@ -39,7 +47,6 @@ function operate(stack)
     }
     return ans;
 }
-const stack = [];
 const keyPadButtons =
 [
     {id:'number_7',text:"7",},
@@ -85,120 +92,130 @@ const backSpace = document.querySelector("#clear_key");
 backSpace.style.fontSize='35px';
 backSpace.style.fontWeight="100";
 const number = document.querySelector('#numberPad');
+function decideInputField()
+{
+    switch (global.inputForNum2) 
+    {
+        case false:
+            global.stack[0]=global.num;
+            break;
+        case true:
+            global.stack[2]=global.num;
+            break;
+        default:
+            break;
+    }
+    display(global.stack);
+}
+function carryOutOperation()
+{
+            answer=operate(global.stack);
+            console.log(answer);
+            global.stack.push(answer);
+            console.table(global.stack);
+            display(global.stack);
+}
 number.addEventListener('click',e =>
 {
-    target = e.target;
+   
+    let target = e.target;
     switch (target.id) {
         case "number_9":
-            num=9;
+            global.num+=9;
             break;
         case "number_8":
-            num=8;
+            global.num+=8;
             break;
         case "number_7":
-            num=7;
+            global.num+=7;
             break;
         case "number_6":
-            num=6;
+            global.num+=6;
             break;
         case "number_5":
-            num=5;
+            global.num+=5;
             break;
         case "number_4":
-            num=4;
+            global.num+=4;
             break;
         case "number_3":
-            num=3;
+            global.num+=3;
             break;
         case "number_2":
-            num=2;
+            global.num+=2;
             break;
         case "number_1":
-            num=1;
+            global.num+=1;
             break;
         case "number_0":
-            num=0;
+            global.num+=0;
             break;
         case "clear_key":
             {
-            stack.pop();
-            display(stack);
+            global.num=global.num.slice(0,-1);
+            decideInputField();
             }
             return;
         case "equate_key":
-            answer=operate(stack);
-            console.log(answer);
-            stack.push(answer);
-            display(stack);
-            checkIfOperatorAlreadyPressed=false;
+            carryOutOperation();
+            global.checkIfOperatorAlreadyPressed=false;
             return;
         default:
             return;
     }
-    stack.push(num);
-    display(stack);
+    decideInputField();
 }
 );
 const operator= document.querySelector("#operatorPad");
-checkIfOperatorAlreadyPressed = false;
 operator.addEventListener('click',e=>
 {
-    target=e.target;
+    let operatorValue;
+    let target=e.target;
     switch (target.id) {
         case 'divide':
-            if(checkIfOperatorAlreadyPressed)
+            if(global.checkIfOperatorAlreadyPressed)
             {
-                answer=operate(stack);
-                stack.push(answer);
-                display(stack);
-                console.table(stack);
-                checkIfOperatorAlreadyPressed=false;   
+                carryOutOperation();
+                global.checkIfOperatorAlreadyPressed=false;   
             }
             operatorValue='÷';
-            checkIfOperatorAlreadyPressed = true;
-            console.log(checkIfOperatorAlreadyPressed);
+            global.checkIfOperatorAlreadyPressed = true;
+            console.log(global.checkIfOperatorAlreadyPressed);
             break;
         case 'multiply':
-            if(checkIfOperatorAlreadyPressed)
+            if(global.checkIfOperatorAlreadyPressed)
             {
-                answer=operate(stack);
-                stack.push(answer);
-                display(stack);
-                console.table(stack);
-                checkIfOperatorAlreadyPressed=false;   
+                carryOutOperation();
+                global.checkIfOperatorAlreadyPressed=false;   
             }
             operatorValue='×';
-            checkIfOperatorAlreadyPressed = true;
+            global.checkIfOperatorAlreadyPressed = true;
             break;
         case 'add':
-            if(checkIfOperatorAlreadyPressed)
+            if(global.checkIfOperatorAlreadyPressed)
             {
-                answer=operate(stack);
-                stack.push(answer);
-                display(stack);
-                console.table(stack);
-                checkIfOperatorAlreadyPressed=false;   
+                carryOutOperation();
+                global.checkIfOperatorAlreadyPressed=false;   
             }
             operatorValue='+';
-            checkIfOperatorAlreadyPressed = true;
+            global.checkIfOperatorAlreadyPressed = true;
             break;
         case 'subtract':
-            if(checkIfOperatorAlreadyPressed)
+            if(global.checkIfOperatorAlreadyPressed)
             {
-                answer=operate(stack);
-                stack.push(answer);
-                display(stack);
-                console.table(stack);
-                checkIfOperatorAlreadyPressed=false;   
+                carryOutOperation();
+                global.checkIfOperatorAlreadyPressed=false;   
             }
             operatorValue='-';
-            checkIfOperatorAlreadyPressed = true;
+            global.checkIfOperatorAlreadyPressed = true;
             break;
         default:
             return;
     }
-    stack.push(operatorValue);
-    display(stack);
+    global.stack.push(operatorValue);
+    display(global.stack);
+    global.num="";
+    global.inputForNum2=true;
 }
 );
 const displayId = document.querySelector('#display');
