@@ -25,8 +25,10 @@ function operate(a,b,operator)
             break;
         case "+":
             ans=sum(a,b);
+            break;
         case "-":
             ans=subtract(a,b);
+            break;
         default:
             alert('ERROR IN OPERATE FUNCTION');
             break;
