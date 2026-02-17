@@ -108,9 +108,8 @@ function carryOutOperation()
             let answer=operate(global.stack);
             if(isNaN(answer))
             {
-                displayId.textContent="Syntax Error"
-                global.stack.length=0;
-                return;
+                alert("Syntax Error");
+                location.reload();
             }
             global.stack.push(answer);
             display(global.stack);
@@ -137,9 +136,10 @@ number.addEventListener('click',e =>
     {
         console.log("clear");
         global.stack.length=0;
-        global.num="";
+        global.num='';
         display(global.stack);
-        decideInputField();
+        global.checkIfOperatorAlreadyPressed=false;
+        global.inputForNum2=false;
         return;
     }
     if(target.id==='equate_key')
