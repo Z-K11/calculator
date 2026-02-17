@@ -112,7 +112,7 @@ function carryOutOperation()
                 clearDisplay();
                 return;
             }
-            global.stack.push(Math.round(answer*10000)/10000);
+            global.stack.push(Math.round(answer*100000000)/100000000);
             display(global.stack);
 }
 function clearDisplay()
