@@ -25,6 +25,10 @@ function subtract(a,b)
 }
 function operate(stack)
 {
+    if(stack.length!==3)
+    {
+        return NaN;
+    }
     let b=parseInt(stack.pop());
     const operator=stack.pop();
     let a=parseInt(stack.pop());
@@ -43,7 +47,6 @@ function operate(stack)
             ans=subtract(a,b);
             break;
         default:
-            console.log(operator);
             break;
     }
     return ans;
@@ -70,9 +73,7 @@ const operators =
     {id:'multiply',text:"×"},
     {id:'add',text:"+"},
     {id:'subtract',text:"-"},
-]
-const keyPadNumbers = document.querySelector(".numbers");
-const operatorContainer = document.querySelector(".operators");
+];
 function createButtons(array,parent,styleClass)
 {
 const buttonsArray = array.map(button=>
@@ -87,12 +88,6 @@ const buttonsArray = array.map(button=>
 );
     return buttonsArray
 }
-const numArray=createButtons(keyPadButtons,keyPadNumbers,'padButtons');
-const operatorArray=createButtons(operators,operatorContainer,'operatorButtons');
-const backSpace = document.querySelector("#clear_key");
-backSpace.style.fontSize='35px';
-backSpace.style.fontWeight="100";
-const number = document.querySelector('#numberPad');
 function decideInputField()
 {
     switch (global.inputForNum2) 
@@ -110,121 +105,92 @@ function decideInputField()
 }
 function carryOutOperation()
 {
-            answer=operate(global.stack);
+            let answer=operate(global.stack);
             if(isNaN(answer))
             {
                 displayId.textContent="Syntax Error"
                 global.stack.length=0;
+                return;
             }
-            console.log(answer);
             global.stack.push(answer);
-            console.table(global.stack);
             display(global.stack);
 }
+
+
+const keyPadNumbers = document.querySelector(".numbers");
+const operatorContainer = document.querySelector(".operators");
+const numArray=createButtons(keyPadButtons,keyPadNumbers,'padButtons');
+const operatorArray=createButtons(operators,operatorContainer,'operatorButtons');
+const backSpace = document.querySelector("#clear_key");
+backSpace.style.fontSize='35px';
+backSpace.style.fontWeight="100";
+
+
+const number = document.querySelector('#numberPad');
+
 number.addEventListener('click',e =>
 {
-   if(global.equate)
+    target = e.target
+   if(target.classList.contains('padButtons'))
    {
-    global.stack.length=0;
-    display(global.stack);
-    global.num="";
-    global.equate=false;
-   }
-    let target = e.target;
-    switch (target.id) {
-        case "number_9":
-            global.num+=9;
-            break;
-        case "number_8":
-            global.num+=8;
-            break;
-        case "number_7":
-            global.num+=7;
-            break;
-        case "number_6":
-            global.num+=6;
-            break;
-        case "number_5":
-            global.num+=5;
-            break;
-        case "number_4":
-            global.num+=4;
-            break;
-        case "number_3":
-            global.num+=3;
-            break;
-        case "number_2":
-            global.num+=2;
-            break;
-        case "number_1":
-            global.num+=1;
-            break;
-        case "number_0":
-            global.num+=0;
-            break;
-        case "clear_key":
-            {
-            global.num=global.num.slice(0,-1);
-            decideInputField();
-            }
-            return;
-        case "equate_key":
-            carryOutOperation();
-            global.checkIfOperatorAlreadyPressed=false;
-            global.inputForNum2=false;
-            global.equate=true;
-            return;
-        default:
-            return;
+    if(target.id==="clear_key")
+    {
+        console.log("clear");
+        global.stack.length=0;
+        global.num="";
+        display(global.stack);
+        decideInputField();
+        return;
     }
+    if(target.id==='equate_key')
+    {
+        console.log("equate");
+        if(global.stack.length<3)
+        {
+            if(global.checkIfOperatorAlreadyPressed)
+            {
+                alert("Syntax Error");
+                location.reload();
+            }
+            global.stack.length=1;
+            display(global.stack);
+            return;
+        }
+        carryOutOperation();
+        global.checkIfOperatorAlreadyPressed=false;
+        return;
+    }
+    global.num+=target.textContent;
     decideInputField();
-}
-);
+   }});
 const operator= document.querySelector("#operatorPad");
 operator.addEventListener('click',e=>
 {
     let operatorValue;
     let target=e.target;
-    switch (target.id) {
-        case 'divide':
-            if(global.checkIfOperatorAlreadyPressed)
-            {
-                carryOutOperation();
-                global.checkIfOperatorAlreadyPressed=false;   
-            }
-            operatorValue='÷';
-            global.checkIfOperatorAlreadyPressed = true;
-            console.log(global.checkIfOperatorAlreadyPressed);
-            break;
-        case 'multiply':
-            if(global.checkIfOperatorAlreadyPressed)
-            {
-                carryOutOperation();
-                global.checkIfOperatorAlreadyPressed=false;   
-            }
-            operatorValue='×';
-            global.checkIfOperatorAlreadyPressed = true;
-            break;
-        case 'add':
-            if(global.checkIfOperatorAlreadyPressed)
-            {
-                carryOutOperation();
-                global.checkIfOperatorAlreadyPressed=false;   
-            }
-            operatorValue='+';
-            global.checkIfOperatorAlreadyPressed = true;
-            break;
-        case 'subtract':
-            if(global.checkIfOperatorAlreadyPressed)
-            {
-                carryOutOperation();
-                global.checkIfOperatorAlreadyPressed=false;   
-            }
-            operatorValue='-';
-            global.checkIfOperatorAlreadyPressed = true;
-            break;
-        default:
+    if (global.stack.length===0 )
+    {
+        alert("syntax error");
+        location.reload();
+    }
+    if(target.classList.contains('operatorButtons'))
+    {
+        if(global.stack.length===3 )
+        {
+            carryOutOperation();
+            global.stack[1]=target.textContent;
+            display(global.stack);
+            global.num="";
+            global.inputForNum2=true;
             return;
+        }
+        if(global.checkIfOperatorAlreadyPressed)
+        {
+            alert("Syntax Error");
+            location.reload();
+        }
+        global.checkIfOperatorAlreadyPressed=true;
+        operatorValue=target.textContent;
     }
     global.stack.push(operatorValue);
     display(global.stack);
@@ -236,5 +202,6 @@ const displayId = document.querySelector('#display');
 function display(displayStack)
 {
     displayId.textContent = displayStack.join("");
+    console.log(displayStack);
     displayId.scrollLeft = displayId.scrollWidth;
 }
