@@ -110,6 +110,7 @@ function carryOutOperation()
             {
                 alert("Syntax Error");
                 location.reload();
+                return;
             }
             global.stack.push(answer);
             display(global.stack);
