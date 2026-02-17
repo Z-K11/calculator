@@ -109,7 +109,7 @@ function carryOutOperation()
             if(isNaN(answer))
             {
                 alert("Syntax Error");
-                location.reload();
+                clearDisplay();
                 return;
             }
             global.stack.push(answer);
