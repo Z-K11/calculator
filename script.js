@@ -112,7 +112,7 @@ function carryOutOperation()
                 clearDisplay();
                 return;
             }
-            global.stack.push(answer);
+            global.stack.push(answer.toFixed(5));
             display(global.stack);
 }
 function clearDisplay()
