@@ -29,9 +29,9 @@ function operate(stack)
     {
         return NaN;
     }
-    let b=parseInt(stack.pop());
+    let b=parseFloat(stack.pop());
     const operator=stack.pop();
-    let a=parseInt(stack.pop());
+    let a=parseFloat(stack.pop());
     let ans
     switch (operator) {
         case "÷":
@@ -112,7 +112,7 @@ function carryOutOperation()
                 clearDisplay();
                 return;
             }
-            global.stack.push(answer.toFixed(5));
+            global.stack.push(answer.toFixed(2));
             display(global.stack);
 }
 function clearDisplay()
