@@ -174,6 +174,7 @@ number.addEventListener('click',e =>
 const operator= document.querySelector("#operatorPad");
 operator.addEventListener('click',e=>
 {
+    global.equate = false;
     let operatorValue;
     let target=e.target;
     if (global.stack.length===0 )
