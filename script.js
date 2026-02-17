@@ -5,6 +5,7 @@ const global=
     checkIfOperatorAlreadyPressed : false,
     inputForNum2 :false,
     equate : false,
+    clearPressed : false,
 
 }
 function divide(a,b)
@@ -123,66 +124,47 @@ function carryOutOperation()
 }
 number.addEventListener('click',e =>
 {
-   if(global.equate)
+    target = e.target
+   if(target.classList.contains('padButtons'))
    {
-    global.stack.length=0;
-    display(global.stack);
-    global.num="";
-    global.equate=false;
-   }
-    let target = e.target;
-    switch (target.id) {
-        case "number_9":
-            global.num+=9;
-            break;
-        case "number_8":
-            global.num+=8;
-            break;
-        case "number_7":
-            global.num+=7;
-            break;
-        case "number_6":
-            global.num+=6;
-            break;
-        case "number_5":
-            global.num+=5;
-            break;
-        case "number_4":
-            global.num+=4;
-            break;
-        case "number_3":
-            global.num+=3;
-            break;
-        case "number_2":
-            global.num+=2;
-            break;
-        case "number_1":
-            global.num+=1;
-            break;
-        case "number_0":
-            global.num+=0;
-            break;
-        case "clear_key":
-            {
-            global.num=global.num.slice(0,-1);
-            decideInputField();
-            }
-            return;
-        case "equate_key":
-            carryOutOperation();
-            global.checkIfOperatorAlreadyPressed=false;
-            global.inputForNum2=false;
-            global.equate=true;
-            return;
-        default:
-            return;
+    if(target.id==="clear_key")
+    {
+        console.log("clear");
+        global.stack.length=0;
+        display(global.stack);
+        decideInputField();
+        return;
     }
+    if(target.id==='equate_key')
+    {
+        console.log("equate");
+        if(global.stack.length<3)
+        {
+            if(global.checkIfOperatorAlreadyPressed)
+            {
+                global.stack.length=0;
+                displayId.textContent="Syntax Error"
+                return;
+            }
+            global.stack.length=1;
+            display(global.stack);
+            return;
+        }
+        carryOutOperation();
+        global.checkIfOperatorAlreadyPressed=false;
+        return;
+    }
+    global.num+=target.textContent;
     decideInputField();
-}
-);
+   }});
 const operator= document.querySelector("#operatorPad");
 operator.addEventListener('click',e=>
 {
+    if(global.clearPressed)
+    {
+        global.clearPressed = false;
+        
+    }
     let operatorValue;
     let target=e.target;
     switch (target.id) {
