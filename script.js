@@ -63,7 +63,7 @@ const keyPadButtons =
     {id:'number_2',text:"2",},
     {id:'number_3',text:"3",},
     {id:'number_0',text:"0",},
-    {id:'clear_key',text:"⌫",},
+    {id:'clear_key',text:"AC",},
     {id:'equate_key',text:"=",}
 
 ]
@@ -121,9 +121,6 @@ const keyPadNumbers = document.querySelector(".numbers");
 const operatorContainer = document.querySelector(".operators");
 const numArray=createButtons(keyPadButtons,keyPadNumbers,'padButtons');
 const operatorArray=createButtons(operators,operatorContainer,'operatorButtons');
-const backSpace = document.querySelector("#clear_key");
-backSpace.style.fontSize='35px';
-backSpace.style.fontWeight="100";
 
 
 const number = document.querySelector('#numberPad');
