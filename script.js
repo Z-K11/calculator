@@ -115,6 +115,15 @@ function carryOutOperation()
             global.stack.push(answer);
             display(global.stack);
 }
+function clearDisplay()
+{
+    console.log("clear");
+    global.stack.length=0;
+    global.num='';
+    display(global.stack);
+    global.checkIfOperatorAlreadyPressed=false;
+    global.inputForNum2=false;
+}
 
 
 const keyPadNumbers = document.querySelector(".numbers");
@@ -128,16 +137,16 @@ const number = document.querySelector('#numberPad');
 number.addEventListener('click',e =>
 {
     target = e.target
-   if(target.classList.contains('padButtons'))
-   {
+    if(global.equate)
+    {
+        clearDisplay();
+        global.equate =false;
+    }
+    if(target.classList.contains('padButtons'))
+    {
     if(target.id==="clear_key")
     {
-        console.log("clear");
-        global.stack.length=0;
-        global.num='';
-        display(global.stack);
-        global.checkIfOperatorAlreadyPressed=false;
-        global.inputForNum2=false;
+        clearDisplay();
         return;
     }
     if(target.id==='equate_key')
@@ -155,6 +164,7 @@ number.addEventListener('click',e =>
             return;
         }
         carryOutOperation();
+        global.equate = true;
         global.checkIfOperatorAlreadyPressed=false;
         return;
     }
