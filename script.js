@@ -106,9 +106,9 @@ function decideInputField()
 function carryOutOperation()
 {
             let answer=operate(global.stack);
-            if(isNaN(answer))
+            if(isNaN(answer) || !isFinite(answer))
             {
-                alert("Syntax Error");
+                alert("Math Error");
                 clearDisplay();
                 return;
             }
